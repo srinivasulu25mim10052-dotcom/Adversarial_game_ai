@@ -1,9 +1,4 @@
-﻿"""
-Adversarial Search Benchmark and Tournament Evaluation.
-Empirically demonstrates:
-1. Pure Minimax vs. Alpha-Beta Pruning vs. Move Ordering node counts and runtimes.
-2. Head-to-head match win-rates between agents (Minimax, MCTS, Random).
-"""
+
 import time
 from game.board import Board
 from game.constants import PLAYER_PIECE, AI_PIECE
@@ -14,12 +9,11 @@ from agents.base_agent import Agent
 
 
 def run_search_comparison() -> None:
-    """Compare search performance across depths and algorithm variants."""
+
     print("=" * 80)
     print("SEARCH PERFORMANCE BENCHMARK: MINIMAX VS ALPHA-BETA VS MOVE ORDERING")
     print("=" * 80)
 
-    # Set up a representative mid-game board position
     board = Board()
     board.drop_piece(3, PLAYER_PIECE)
     board.drop_piece(3, AI_PIECE)
@@ -33,19 +27,17 @@ def run_search_comparison() -> None:
     print("-" * len(header))
 
     for depth in range(1, 6):
-        # 1. Pure Minimax (no pruning)
+    
         pure = MinimaxAgent(depth=depth, use_pruning=False, order_moves=False)
         t0 = time.perf_counter()
         move_pure = pure.get_move(board)
         t_pure = (time.perf_counter() - t0) * 1000
 
-        # 2. Alpha-Beta without move ordering
         ab = MinimaxAgent(depth=depth, use_pruning=True, order_moves=False)
         t0 = time.perf_counter()
         move_ab = ab.get_move(board)
         t_ab = (time.perf_counter() - t0) * 1000
 
-        # 3. Alpha-Beta with center move ordering
         ab_opt = MinimaxAgent(depth=depth, use_pruning=True, order_moves=True)
         t0 = time.perf_counter()
         move_opt = ab_opt.get_move(board)
@@ -94,7 +86,6 @@ def run_tournament(agent1: Agent, agent2: Agent, rounds: int = 4) -> None:
     draws = 0
 
     for i in range(rounds):
-        # Alternate who plays first (Piece 1 goes first)
         if i % 2 == 0:
             a1 = agent1
             a1.piece = PLAYER_PIECE
