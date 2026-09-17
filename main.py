@@ -1,8 +1,4 @@
-﻿"""
-Connect Four Application Entrypoint.
-Provides both Graphical (Pygame) and Terminal (CLI) game modes,
-as well as AI benchmarks and tournaments.
-"""
+
 import sys
 import time
 from game.board import Board
@@ -30,7 +26,7 @@ def print_banner() -> None:
 
 
 def play_terminal_game(player1: Agent, player2: Agent) -> None:
-    """Execute an interactive game between two agents in the terminal."""
+   
     board = Board()
     current_agent, waiting_agent = player1, player2
 
@@ -48,7 +44,7 @@ def play_terminal_game(player1: Agent, player2: Agent) -> None:
 
         row = board.drop_piece(chosen_col, current_agent.piece)
 
-        # Print agent telemetry if available
+       
         telemetry = f"placed piece in column {chosen_col + 1} (took {elapsed:.3f}s)"
         if isinstance(current_agent, MinimaxAgent):
             telemetry += f" | {current_agent.nodes_visited} nodes visited | {current_agent.pruning_cutoffs} cutoffs"
