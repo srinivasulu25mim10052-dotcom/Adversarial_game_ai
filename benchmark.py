@@ -53,10 +53,7 @@ def run_search_comparison() -> None:
 
 
 def play_match(agent1: Agent, agent2: Agent, verbose: bool = False) -> int | None:
-    """
-    Simulate a single match between two agents.
-    Returns winning piece (1 or 2) or None if draw.
-    """
+  
     board = Board()
     current_agent, other_agent = agent1, agent2
 
@@ -76,7 +73,7 @@ def play_match(agent1: Agent, agent2: Agent, verbose: bool = False) -> int | Non
 
 
 def run_tournament(agent1: Agent, agent2: Agent, rounds: int = 4) -> None:
-    """Run a series of matches alternating starting player."""
+   
     print("=" * 80)
     print(f"TOURNAMENT: {agent1.name} vs {agent2.name} ({rounds} games)")
     print("=" * 80)
