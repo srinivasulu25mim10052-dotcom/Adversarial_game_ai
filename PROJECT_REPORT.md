@@ -1,10 +1,6 @@
 # Technical Project Report: Classical AI & Adversarial Search Agent
 
 **Project Title**: Autonomous Adversarial Game-Playing Agent for Connect Four via Minimax, Alpha-Beta Pruning, and Monte Carlo Tree Search  
-**Domain**: Fundamentals of Artificial Intelligence, Game Theory, and Heuristic Search  
-**Author / Candidate**: Srinivas  
-**Date**: September 2026  
-**Repository Location**: `C:\Users\srinivas\OneDrive\Desktop\adversarial_game_ai`
 
 ---
 
@@ -20,9 +16,6 @@ The engineered system implements:
 5. **Monte Carlo Tree Search (MCTS) utilizing Upper Confidence Bounds for Trees (UCT)**
 6. **A 100% Headless Command-Line Evaluation Suite and an Optional Pygame GUI**
 
-Empirical benchmarking confirms that $\alpha$-$\beta$ pruning achieves a **$93.9\%$ reduction in evaluated search nodes** at depth 5 compared to standard Minimax, reducing average decision latency from $1,543.6\text{ ms}$ to $102.1\text{ ms}$ without sacrificing optimality.
-
----
 
 ## 1. Problem Formulation & Task Environment
 
