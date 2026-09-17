@@ -1,11 +1,3 @@
-﻿"""
-Monte Carlo Tree Search (MCTS) Agent for Connect Four.
-Implements the 4 classic phases of MCTS with Upper Confidence Bounds for Trees (UCT):
-1. Selection (UCT)
-2. Expansion
-3. Simulation (Rollout)
-4. Backpropagation
-"""
 from __future__ import annotations
 import math
 import random
@@ -17,8 +9,7 @@ from game.board import Board
 
 
 class MCTSNode:
-    """A node in the Monte Carlo Tree Search graph."""
-
+  
     def __init__(
         self,
         board: Board,
@@ -46,7 +37,6 @@ class MCTSNode:
         return is_term
 
     def best_child_uct(self, exploration_weight: float = 1.414) -> MCTSNode:
-        """Select child with highest UCT (Upper Confidence Bound for Trees)."""
         best_score = -math.inf
         best_child = None
 
@@ -67,10 +57,6 @@ class MCTSNode:
 
 
 class MCTSAgent(Agent):
-    """
-    Monte Carlo Tree Search Agent.
-    Learns state values through stochastic simulation rather than static heuristic evaluation.
-    """
 
     def __init__(
         self,
@@ -93,8 +79,7 @@ class MCTSAgent(Agent):
         if len(valid_moves) == 1:
             return valid_moves[0]
 
-        # Root node represents the current board before our move
-        root = MCTSNode(
+       root = MCTSNode(
             board=board.clone(),
             parent=None,
             move=None,
@@ -103,12 +88,9 @@ class MCTSAgent(Agent):
 
         for _ in range(self.iterations):
             node = root
-
-            # 1. Selection: descend tree until non-fully-expanded or terminal node
             while not node.is_terminal and node.is_fully_expanded:
                 node = node.best_child_uct(self.exploration_weight)
 
-            # 2. Expansion: expand an untried move if not terminal
             if not node.is_terminal and node.untried_moves:
                 move = node.untried_moves.pop()
                 next_player = 1 if node.player_who_moved == 2 else 2
@@ -125,10 +107,9 @@ class MCTSAgent(Agent):
                 node.children[move] = child_node
                 node = child_node
 
-            # 3. Simulation / Rollout: simulate random game until terminal or max depth
+  
             winner = self._simulate(node.board.clone(), node.player_who_moved)
 
-            # 4. Backpropagation: propagate result up to root
             curr: Optional[MCTSNode] = node
             while curr is not None:
                 curr.visits += 1
@@ -144,7 +125,6 @@ class MCTSAgent(Agent):
 
         self.last_search_time = time.perf_counter() - start_time
 
-        # Robust Child: choose the move that received the most visits
         best_move = max(root.children.items(), key=lambda item: item[1].visits)[0]
         return best_move
 
@@ -162,7 +142,6 @@ class MCTSAgent(Agent):
             if not moves:
                 return None  # Draw
 
-            # Quick check for immediate winning move in rollout (light rollout policy)
             winning_move = None
             for m in moves:
                 row = sim_board.drop_piece(m, curr_player)
