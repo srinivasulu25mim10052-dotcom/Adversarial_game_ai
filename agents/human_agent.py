@@ -1,11 +1,9 @@
-﻿"""Human Agent for interactive terminal play."""
 from agents.base_agent import Agent
 from game.board import Board
 from game.constants import COLUMN_COUNT
 
 
 class HumanAgent(Agent):
-    """Prompts human player for input via console."""
 
     def __init__(self, name: str = "Human Player", piece: int = 1) -> None:
         super().__init__(name, piece)
